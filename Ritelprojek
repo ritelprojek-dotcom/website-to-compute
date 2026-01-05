@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Kasir</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 15px auto; padding: 0 10px; }
+        .section { margin: 12px 0; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
+        h2 { margin: 0 0 8px; font-size: 1.1em; color: #2d3436; }
+        .form-row { display: flex; gap: 8px; margin: 6px 0; }
+        .form-full { margin: 6px 0; }
+        input { width: 100%; padding: 6px; box-sizing: border-box; }
+        label { font-size: 0.9em; font-weight: bold; margin-bottom: 2px; display: block; }
+        .acv-result { font-weight: bold; color: #27ae60; font-size: 0.9em; margin-top: 2px; }
+        button { padding: 8px 12px; margin: 8px 4px 0; border: none; border-radius: 4px; color: white; cursor: pointer; }
+        #generateBtn { background: #3498db; }
+        #copyBtn { background: #25d366; }
+        #reportOutput { margin-top: 15px; padding: 10px; background: #f8f9fa; border-radius: 4px; white-space: pre-wrap; font-size: 0.9em; }
+        h1 { font-size: 1.3em; text-align: center; margin: 10px 0; }
