@@ -1,56 +1,274 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
-  <!-- 
-      This is an HTML comment
-      You can write text in a comment and the content won't be visible in the page
-    -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laporan PPT Toko</title>
 
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" href="https://glitch.com/favicon.ico" />
+<style>
+:root {
+    --primary: #2563eb;
+    --secondary: #1e40af;
+    --danger: #dc2626;
+    --bg: #f1f5f9;
+}
 
-  <!--
-      This is the page head - it contains info the browser uses
-      Like the title, which appears on the browser tab but not inside the page
-      Further down you'll see the content that displays in the page
-    -->
-  <title>Hello World!</title>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
 
-  <!-- The website stylesheet -->
-  <link rel="stylesheet" href="/style.css" />
+body {
+    background: linear-gradient(135deg, #dbeafe, #eff6ff);
+    min-height: 100vh;
+    padding: 20px;
+}
 
-  <!-- The website JavaScript file -->
-  <script src="/script.js" defer></script>
+/* ===== LOGIN ===== */
+.login-box {
+    max-width: 420px;
+    margin: 120px auto;
+    background: white;
+    padding: 35px;
+    border-radius: 14px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.login-box h2 {
+    margin-bottom: 20px;
+    color: var(--secondary);
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+button {
+    padding: 12px 18px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--secondary);
+}
+
+/* ===== MAIN PAGE ===== */
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+header h1 {
+    color: var(--secondary);
+    margin-bottom: 5px;
+}
+
+.admin-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.admin-status {
+    font-weight: bold;
+    color: #16a34a;
+}
+
+/* ===== FORM ===== */
+.upload-section {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+.upload-section h3 {
+    margin-bottom: 15px;
+    color: var(--secondary);
+}
+
+/* ===== LIST ===== */
+.link-item {
+    background: #ffffff;
+    border-left: 5px solid var(--primary);
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.link-item:hover {
+    transform: translateY(-3px);
+}
+
+.link-item a {
+    color: var(--primary);
+    text-decoration: none;
+    word-break: break-all;
+}
+
+.hapus-btn {
+    background: var(--danger);
+    color: white;
+    margin-top: 10px;
+}
+
+.hapus-btn:hover {
+    background: #b91c1c;
+}
+
+@media(max-width:600px){
+    .admin-bar {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+</style>
 </head>
 
 <body>
-  <!--
-      The body includes the content you see in the page
-      Each element is defined using tags, like this <div></div>
-      The attributes like class="wrapper" let us style elements in the CSS
-    -->
-  <div class="wrapper">
-    <div class="content" role="main">
-      <h1 class="title">Oh hi website!</h1>
-      <img src="/cool-website.svg" class="illustration" alt="cool website" />
-      <div class="instructions">
-        <p>
-          Fork <a href="https://github.com/glitchdotcom/website-to-compute">this project</a> and open it in a GitHub Codespace.
-        </p>
-        <p> Follow the steps in the README to deploy your new website to Fastly in a few steps!
-        </p>
 
-      </div>
+<!-- LOGIN -->
+<div id="loginPage" class="login-box">
+    <h2>🔐 Login PPT Toko</h2>
+    <input type="password" id="loginPassword" placeholder="Masukkan Password">
+    <button class="btn-primary" onclick="login()">Login</button>
+</div>
 
-      <footer class="footer">
-        <div>
-          <a class="remix" href="https://github.com/glitchdotcom/website-to-compute">🚧 Get your own site</a>
-        </div>
-      </footer>
+<!-- MAIN -->
+<div id="mainPage" class="container" style="display:none;">
+    <header>
+        <h1>📊 Laporan PPT Toko</h1>
+        <p>Manajemen Arsip Laporan</p>
+    </header>
+
+    <div class="admin-bar">
+        <button class="btn-primary" onclick="adminLogin()">Masuk Mode Admin</button>
+        <span id="adminStatus" class="admin-status"></span>
     </div>
-  </div>
-</body>
 
+    <div class="upload-section">
+        <h3>➕ Tambah Laporan</h3>
+        <input type="text" id="namaLaporan" placeholder="Nama Laporan">
+        <input type="text" id="linkDrive" placeholder="Link Google Drive">
+        <button class="btn-primary" onclick="simpanLink()">Simpan</button>
+    </div>
+
+    <h3>📁 Daftar Laporan</h3>
+    <div id="daftarLinks"></div>
+</div>
+
+<script>
+const LOGIN_PASSWORD = "BERSATU";
+const ADMIN_PASSWORD = "ADMIN123";
+
+function login() {
+    if (loginPassword.value === LOGIN_PASSWORD) {
+        sessionStorage.setItem("login", "true");
+        tampilkanHalaman();
+    } else alert("Password salah!");
+}
+
+function tampilkanHalaman() {
+    loginPage.style.display = "none";
+    mainPage.style.display = "block";
+    tampilkanLinks();
+    cekAdmin();
+}
+
+function adminLogin() {
+    const pass = prompt("Masukkan Password Admin:");
+    if (pass === ADMIN_PASSWORD) {
+        sessionStorage.setItem("admin", "true");
+        cekAdmin();
+        tampilkanLinks();
+        alert("Mode Admin Aktif");
+    } else alert("Password Admin salah!");
+}
+
+function cekAdmin() {
+    adminStatus.innerText =
+        sessionStorage.getItem("admin") === "true"
+        ? "MODE ADMIN AKTIF"
+        : "";
+}
+
+function simpanLink() {
+    if (!namaLaporan.value || !linkDrive.value) {
+        alert("Lengkapi data!");
+        return;
+    }
+    if (!linkDrive.value.includes("drive.google.com")) {
+        alert("Harus link Google Drive!");
+        return;
+    }
+
+    let data = JSON.parse(localStorage.getItem("lpjToko")) || [];
+    data.push({ nama: namaLaporan.value, link: linkDrive.value });
+    localStorage.setItem("lpjToko", JSON.stringify(data));
+
+    namaLaporan.value = "";
+    linkDrive.value = "";
+    tampilkanLinks();
+}
+
+function hapusLink(i) {
+    let data = JSON.parse(localStorage.getItem("lpjToko"));
+    if (confirm("Hapus laporan ini?")) {
+        data.splice(i, 1);
+        localStorage.setItem("lpjToko", JSON.stringify(data));
+        tampilkanLinks();
+    }
+}
+
+function tampilkanLinks() {
+    let data = JSON.parse(localStorage.getItem("lpjToko")) || [];
+    let admin = sessionStorage.getItem("admin") === "true";
+    daftarLinks.innerHTML = data.length
+        ? data.map((d,i)=>`
+            <div class="link-item">
+                <strong>${d.nama}</strong><br>
+                <a href="${d.link}" target="_blank">${d.link}</a>
+                ${admin ? `<br><button class="hapus-btn" onclick="hapusLink(${i})">Hapus</button>` : ""}
+            </div>`).join("")
+        : "<p>Belum ada laporan.</p>";
+}
+
+if (sessionStorage.getItem("login") === "true") tampilkanHalaman();
+</script>
+
+</body>
 </html>
