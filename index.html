@@ -1,153 +1,274 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>✨ Dashboard Laporan PPT Toko</title>
-    <!-- Hubungkan file CSS eksternal -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Hubungkan FontAwesome untuk ikon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Tambah font Inter yang lebih modern -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laporan PPT Toko</title>
+
+<style>
+:root {
+    --primary: #2563eb;
+    --secondary: #1e40af;
+    --danger: #dc2626;
+    --bg: #f1f5f9;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #dbeafe, #eff6ff);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* ===== LOGIN ===== */
+.login-box {
+    max-width: 420px;
+    margin: 120px auto;
+    background: white;
+    padding: 35px;
+    border-radius: 14px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.login-box h2 {
+    margin-bottom: 20px;
+    color: var(--secondary);
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+button {
+    padding: 12px 18px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--secondary);
+}
+
+/* ===== MAIN PAGE ===== */
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+header h1 {
+    color: var(--secondary);
+    margin-bottom: 5px;
+}
+
+.admin-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.admin-status {
+    font-weight: bold;
+    color: #16a34a;
+}
+
+/* ===== FORM ===== */
+.upload-section {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+.upload-section h3 {
+    margin-bottom: 15px;
+    color: var(--secondary);
+}
+
+/* ===== LIST ===== */
+.link-item {
+    background: #ffffff;
+    border-left: 5px solid var(--primary);
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.link-item:hover {
+    transform: translateY(-3px);
+}
+
+.link-item a {
+    color: var(--primary);
+    text-decoration: none;
+    word-break: break-all;
+}
+
+.hapus-btn {
+    background: var(--danger);
+    color: white;
+    margin-top: 10px;
+}
+
+.hapus-btn:hover {
+    background: #b91c1c;
+}
+
+@media(max-width:600px){
+    .admin-bar {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+</style>
 </head>
+
 <body>
-    <!-- Elemen overlay untuk efek blur background -->
-    <div class="body-overlay"></div>
 
-    <!-- HALAMAN LOGIN -->
-    <div id="loginPage" class="login-box">
-        <h2><i class="fas fa-shield-alt"></i> Login Dashboard Toko</h2>
-        <input type="password" id="loginPassword" placeholder="Masukkan Password Admin">
-        <button class="btn-primary" onclick="login()">
-            <span>Masuk ke Sistem</span>
-        </button>
+<!-- LOGIN -->
+<div id="loginPage" class="login-box">
+    <h2>🔐 Login PPT Toko</h2>
+    <input type="password" id="loginPassword" placeholder="Masukkan Password">
+    <button class="btn-primary" onclick="login()">Login</button>
+</div>
+
+<!-- MAIN -->
+<div id="mainPage" class="container" style="display:none;">
+    <header>
+        <h1>📊 Laporan PPT Toko</h1>
+        <p>Manajemen Arsip Laporan</p>
+    </header>
+
+    <div class="admin-bar">
+        <button class="btn-primary" onclick="adminLogin()">Masuk Mode Admin</button>
+        <span id="adminStatus" class="admin-status"></span>
     </div>
 
-    <!-- HALAMAN UTAMA -->
-    <div id="mainPage" style="display: none;">
-        <div class="container">
-            <!-- HEADER DASHBOARD -->
-            <header>
-                <h1><i class="fas fa-store-alt"></i> Laporan PPT Toko</h1>
-                <p>Manajemen Dokumen Laporan Produksi & Penjualan</p>
-            </header>
-
-            <!-- BAR STATUS ADMIN -->
-            <div class="admin-bar">
-                <div class="admin-status">
-                    <i class="fas fa-circle-notch"></i> Sistem Aktif
-                </div>
-                <button class="btn-primary" style="width: auto; padding: 10px 20px;" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i> Keluar
-                </button>
-            </div>
-
-            <!-- BAGIAN UPLOAD LAPORAN -->
-            <div class="upload-section">
-                <h3><i class="fas fa-cloud-upload-alt"></i> Unggah Laporan Baru</h3>
-                <input type="text" id="reportName" placeholder="Nama Laporan (Contoh: Laporan November 2025)">
-                <input type="text" id="reportUrl" placeholder="Link Google Drive/Dokumen">
-                <button class="btn-primary" onclick="addReport()">
-                    <i class="fas fa-plus-circle"></i> Tambahkan Laporan
-                </button>
-            </div>
-
-            <!-- DAFTAR LAPORAN -->
-            <div id="reportList">
-                <h3><i class="fas fa-file-alt"></i> Daftar Laporan Tersimpan</h3>
-                <!-- Laporan akan ditampilkan di sini secara otomatis -->
-            </div>
-        </div>
+    <div class="upload-section">
+        <h3>➕ Tambah Laporan</h3>
+        <input type="text" id="namaLaporan" placeholder="Nama Laporan">
+        <input type="text" id="linkDrive" placeholder="Link Google Drive">
+        <button class="btn-primary" onclick="simpanLink()">Simpan</button>
     </div>
 
-    <!-- SCRIPT JAVASCRIPT -->
-    <script>
-        // Password admin (bisa kamu ganti sesuai keinginan)
-        const ADMIN_PASSWORD = "admin123";
+    <h3>📁 Daftar Laporan</h3>
+    <div id="daftarLinks"></div>
+</div>
 
-        // Ambil data laporan dari penyimpanan lokal
-        let reports = JSON.parse(localStorage.getItem('pptReports')) || [];
+<script>
+const LOGIN_PASSWORD = "BERSATU";
+const ADMIN_PASSWORD = "ADMIN123";
 
-        // Fungsi Login
-        function login() {
-            const password = document.getElementById('loginPassword').value;
-            if (password === ADMIN_PASSWORD) {
-                document.getElementById('loginPage').style.display = 'none';
-                document.getElementById('mainPage').style.display = 'block';
-                renderReports();
-            } else {
-                alert('Password salah! Silakan coba lagi.');
-            }
-        }
+function login() {
+    if (loginPassword.value === LOGIN_PASSWORD) {
+        sessionStorage.setItem("login", "true");
+        tampilkanHalaman();
+    } else alert("Password salah!");
+}
 
-        // Fungsi Logout
-        function logout() {
-            document.getElementById('mainPage').style.display = 'none';
-            document.getElementById('loginPage').style.display = 'block';
-            document.getElementById('loginPassword').value = '';
-        }
+function tampilkanHalaman() {
+    loginPage.style.display = "none";
+    mainPage.style.display = "block";
+    tampilkanLinks();
+    cekAdmin();
+}
 
-        // Fungsi Tambah Laporan
-        function addReport() {
-            const name = document.getElementById('reportName').value;
-            const url = document.getElementById('reportUrl').value;
-            
-            if (name && url) {
-                reports.push({ name: name, url: url });
-                localStorage.setItem('pptReports', JSON.stringify(reports));
-                renderReports();
-                document.getElementById('reportName').value = '';
-                document.getElementById('reportUrl').value = '';
-                alert('Laporan berhasil ditambahkan!');
-            } else {
-                alert('Nama dan link laporan tidak boleh kosong!');
-            }
-        }
+function adminLogin() {
+    const pass = prompt("Masukkan Password Admin:");
+    if (pass === ADMIN_PASSWORD) {
+        sessionStorage.setItem("admin", "true");
+        cekAdmin();
+        tampilkanLinks();
+        alert("Mode Admin Aktif");
+    } else alert("Password Admin salah!");
+}
 
-        // Fungsi Hapus Laporan
-        function deleteReport(index) {
-            if (confirm('Apakah kamu yakin ingin menghapus laporan ini?')) {
-                reports.splice(index, 1);
-                localStorage.setItem('pptReports', JSON.stringify(reports));
-                renderReports();
-            }
-        }
+function cekAdmin() {
+    adminStatus.innerText =
+        sessionStorage.getItem("admin") === "true"
+        ? "MODE ADMIN AKTIF"
+        : "";
+}
 
-        // Fungsi Tampilkan Laporan
-        function renderReports() {
-            const list = document.getElementById('reportList');
-            if (reports.length === 0) {
-                list.innerHTML = `
-                    <h3><i class="fas fa-file-alt"></i> Daftar Laporan Tersimpan</h3>
-                    <p style="color: var(--text-secondary); text-align: center; padding: 30px; font-size: 16px;">
-                        Belum ada laporan yang tersimpan. Silakan tambahkan laporan baru!
-                    </p>
-                `;
-                return;
-            }
+function simpanLink() {
+    if (!namaLaporan.value || !linkDrive.value) {
+        alert("Lengkapi data!");
+        return;
+    }
+    if (!linkDrive.value.includes("drive.google.com")) {
+        alert("Harus link Google Drive!");
+        return;
+    }
 
-            list.innerHTML = `<h3><i class="fas fa-file-alt"></i> Daftar Laporan Tersimpan</h3>`;
-            reports.forEach((report, index) => {
-                const item = document.createElement('div');
-                item.className = 'link-item';
-                item.innerHTML = `
-                    <strong><i class="fas fa-file-pdf"></i> ${report.name}</strong>
-                    <a href="${report.url}" target="_blank">
-                        <i class="fas fa-external-link-alt"></i> Buka Laporan
-                    </a>
-                    <button class="hapus-btn" onclick="deleteReport(${index})">
-                        <i class="fas fa-trash-alt"></i> Hapus Laporan
-                    </button>
-                `;
-                list.appendChild(item);
-            });
-        }
+    let data = JSON.parse(localStorage.getItem("lpjToko")) || [];
+    data.push({ nama: namaLaporan.value, link: linkDrive.value });
+    localStorage.setItem("lpjToko", JSON.stringify(data));
 
-        // Cek apakah sudah login dari sebelumnya (opsional)
-        window.onload = function() {
-            // Jika ingin menyimpan status login, bisa ditambahkan di sini
-        }
-    </script>
+    namaLaporan.value = "";
+    linkDrive.value = "";
+    tampilkanLinks();
+}
+
+function hapusLink(i) {
+    let data = JSON.parse(localStorage.getItem("lpjToko"));
+    if (confirm("Hapus laporan ini?")) {
+        data.splice(i, 1);
+        localStorage.setItem("lpjToko", JSON.stringify(data));
+        tampilkanLinks();
+    }
+}
+
+function tampilkanLinks() {
+    let data = JSON.parse(localStorage.getItem("lpjToko")) || [];
+    let admin = sessionStorage.getItem("admin") === "true";
+    daftarLinks.innerHTML = data.length
+        ? data.map((d,i)=>`
+            <div class="link-item">
+                <strong>${d.nama}</strong><br>
+                <a href="${d.link}" target="_blank">${d.link}</a>
+                ${admin ? `<br><button class="hapus-btn" onclick="hapusLink(${i})">Hapus</button>` : ""}
+            </div>`).join("")
+        : "<p>Belum ada laporan.</p>";
+}
+
+if (sessionStorage.getItem("login") === "true") tampilkanHalaman();
+</script>
+
 </body>
 </html>
